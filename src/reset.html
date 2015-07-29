@@ -1,0 +1,27 @@
+<template>
+  <section>
+    <h2>${heading}</h2>
+
+    <p>
+      The issue is that the VM will no longer receive events from the dispatcher
+      after it's deactivate has been called. You can click on one of the parent routes
+      in the list above and the event cycle will work. Attempting to click on another will
+      fail as the VM has been removed from the Dispatcher 'listener list'.
+    </p>
+    <p>
+      Looking at the 'plan-view-example.js' will show the method:
+      <code>
+        <pre>
+        @handle(PlanActionConstants.PLAN_SELECTED)
+          handlePlanSelected(message, plan) {
+          logger.debug("This will only get invoked this one time == bug.", plan);
+          this.plan = this.planStore.currentPlan;
+        }
+      </pre>
+      </code>
+      <br />
+      This method will be invoked only once, even though the store is emitting the correct
+      event (see the console).
+    </p>
+  </section>
+</template>

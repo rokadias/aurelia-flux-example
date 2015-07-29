@@ -1,0 +1,158 @@
+# Care Logistics C3 Web Application
+
+This is a standard navigation-style app using gulp to build your ES6 code with the Babel compiler. Karma/Protractor/Jasmine testing is also configured.
+
+## Running The App
+
+To run the app, follow these steps.
+
+1. Ensure that [NodeJS](http://nodejs.org/) is installed. This provides the platform on which the build tooling runs.
+
+2. From the project folder, execute the following command:
+
+  ```shell
+  npm install
+  ```
+  
+3. Ensure that [Gulp](http://gulpjs.com/) is installed. If you need to install it, use the following command:
+
+  ```shell
+  npm install -g gulp
+  ```
+  
+4. Ensure that [jspm](http://jspm.io/) is installed. If you need to install it, use the following command:
+
+  ```shell
+  npm install -g jspm
+  ```
+  > **Note:** jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm registry config github` and following the prompts.
+  
+5. Install the client-side dependencies with jspm:
+
+  ```shell
+  jspm install -y
+  ```
+  
+  >**Note:** Windows users, if you experience an error of "unknown command unzip" you can solve this problem by doing `npm install -g unzip` and then re-running `jspm install`.
+  
+6. To run the app, execute the following command:
+
+  ```shell
+  gulp watch
+  ```
+  
+7. Browse to [http://localhost:9000](http://localhost:9000) to see the app. You can make changes in the code found under `src` and the browser should auto-refresh itself as you save files.
+
+> Note: At present there is a bug in the HTMLImports polyfill which only occurs on IE. We have submitted a pull request to the team with the fix. In the mean time, if you want to test on IE, you can work around the issue by explicitly adding a script tag before you load system.js. The script tag should look something like this (be sure to confirm the version number):
+
+```html
+<script src="jspm_packages/github/webcomponents/webcomponentsjs@0.5.2/HTMLImports.js"></script>
+```
+
+## Running The Unit Tests
+
+To run the unit tests, first ensure that you have followed the steps above in order to install all dependencies and successfully build the library. Once you have done that, proceed with these additional steps:
+
+1. Ensure that the [Karma](http://karma-runner.github.io/) CLI is installed. If you need to install it, use the following command:
+
+  ```shell
+  npm install -g karma-cli
+  ```
+  
+2. Install Aurelia libs for test visibility:
+
+```shell
+jspm install aurelia-framework
+jspm install aurelia-http-client
+jspm install aurelia-router
+```
+
+3. You can now run the tests with this command:
+
+  ```shell
+  karma start
+  ```
+
+## Running The E2E Tests
+Integration tests are performed with [Protractor](http://angular.github.io/protractor/#/).
+
+1. Place your E2E-Tests into the folder ```test/e2e/src```
+
+2. Install the necessary webdriver
+
+  ```shell
+  gulp webdriver_update
+  ```
+
+3. Configure the path to the webdriver by opening the file ```protractor.conf.js``` and adjusting the ```seleniumServerJar``` property. Typically its only needed to adjust the version number.
+
+4. Make sure your app runs and is accessible
+
+  ```shell
+  gulp watch
+  ```
+
+5. In another console run the E2E-Tests
+
+  ```shell
+  gulp e2e
+  ```
+  
+## Bonus: Configuring Apache
+  
+1) Add an new vhosts file for in `<apache_conf_dir>/other`
+
+A template:
+
+
+
+    ServerName c3
+    Listen 9010 
+    <VirtualHost *:<apache_port>>
+      ServerAdmin  <your_email>@carelogistics.com
+      DocumentRoot <path_to_bowditch_src_root>
+      ErrorLog     <path_to_log_dir>/bowditch.log
+      LogLevel     warn
+      
+      ProxyPass /naxos      http://<naxos_server>:<naxos_port>/naxos
+  
+      <Directory  path_to_bowditch_src_root>>
+          Options Indexes FollowSymLinks MultiViews
+          AllowOverride None
+          Require all granted
+      </Directory>
+  
+      Header add X-UA-Compatible chrome=1
+  
+    </VirtualHost>
+    
+
+An sample file, located in `/etc/apache2/other`. This file will host the application
+on port 9010 and communicate with a Naxos server running on port 9001.
+    
+    ServerName bowditch
+    Listen 9010 
+    <VirtualHost *:9010>
+        ServerAdmin  mmiller@carelogistics.com
+        DocumentRoot /Users/mmiller/Development/Projects/bowditch
+        ErrorLog     /var/log/apache2/bowditch-error.log
+        LogLevel     warn
+        
+        ProxyPass /naxos      http://localhost:9001/naxos
+    
+        <Directory /Users/mmiller/Development/Projects/bowditch>
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride None
+            Require all granted
+        </Directory>
+    
+        Header add X-UA-Compatible chrome=1
+    
+    </VirtualHost>
+
+  
+
+
+
+  
+  
