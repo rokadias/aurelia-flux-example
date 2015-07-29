@@ -6,7 +6,7 @@ import {handle, waitFor, Dispatcher} from 'aurelia-flux';
 
 const logger:Logger = LogManager.getLogger("plan-view-example");
 
-export class ProjectViewExample {
+export class PlanViewExample {
 
   static inject = [PlanActionCreators, PlanStore, Dispatcher];
 

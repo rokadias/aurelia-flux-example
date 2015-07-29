@@ -5,7 +5,7 @@ import {PlanStore} from './plan-store';
 import {bindable} from 'aurelia-framework';
 import {handle, waitFor, Dispatcher} from 'aurelia-flux';
 
-export class PlanListView {
+export class App {
 
   @bindable plans;
 
