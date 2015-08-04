@@ -3,7 +3,7 @@ import {computedFrom, LogManager} from 'aurelia-framework';
 import {PlanActionConstants} from './plan-action-constants';
 import _ from 'lodash';
 
-const logger:Logger = LogManager.getLogger("plan-store");
+const logger:Logger = LogManager.getLogger('plan-store');
 
 /**
  * A store which contains all the accessors necessary to read Projects. As with all stores,
@@ -26,12 +26,12 @@ export class PlanStore {
     this.dispatcher = dispatcher;
   }
 
-  @computedFrom("_projects")
+  @computedFrom('_projects')
   get plans() {
     return this._plans;
   }
 
-  @computedFrom("_currentPlan")
+  @computedFrom('_currentPlan')
   get currentPlan() {
     return this._currentPlan;
   }
@@ -39,15 +39,18 @@ export class PlanStore {
   @handle(PlanActionConstants.SELECT_PLAN)
   handleSelectPlan(message, visitId) {
     this._currentPlan = _.find(this.plans, p => p.visitId == visitId);
-    logger.debug("Setting current plan to: ", this.currentPlan);
+    logger.debug('Received event: ', message);
     this.dispatcher.dispatch(PlanActionConstants.PLAN_SELECTED, this.currentPlan);
+    logger.debug('Sent event: ', PlanActionConstants.PLAN_SELECTED);
   }
 
 
   @handle(PlanActionConstants.RETRIEVE_PLANS)
   handleRetrieveProjects(message, projects) {
+    logger.debug('Received event: ', message);
     this._plans = projects;
     this.dispatcher.dispatch(PlanActionConstants.PLANS_RETRIEVED, this._plans);
+    logger.debug('Sent event: ', PlanActionConstants.PLANS_RETRIEVED);
   }
 
 }

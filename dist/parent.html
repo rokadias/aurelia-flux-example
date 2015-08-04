@@ -1,0 +1,20 @@
+<template>
+  Child Navigation:
+  <div style="background-color: aqua">
+
+    <ul>
+      <li repeat.for="plan of plans">
+        <a route-href="route: plan-view-example; params.bind: {visitId: plan.visitId}">${plan.visitId}</a></li>
+    </ul>
+
+
+    <a route-href="route: reset">(Reset Child)</a>
+
+
+  </div>
+
+  <router-view></router-view>
+
+
+  
+</template>

@@ -1,12 +1,16 @@
 <template>
 
-  <div class="col-md-2">
-    <a route-href="route: reset">Reset</a>
-    <ul>
-      <li repeat.for="plan of plans">
-        <a route-href="route: plan-view-example; params.bind: {visitId: plan.visitId}">${plan.visitId}</a></li>
-    </ul>
+  <div style="background-color: lightgray">
+    <a route-href="route: home; params.bind: {}">Parent</a><br>
+    <a route-href="route: child; params.bind: {}">Child</a></td>
   </div>
 
-  <router-view></router-view>
+  <div style="float: left">
+    <router-view></router-view>
+  </div>
+
+
+
+
+
 </template>

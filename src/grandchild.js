@@ -6,7 +6,7 @@ import {handle, waitFor, Dispatcher} from 'aurelia-flux';
 
 const logger:Logger = LogManager.getLogger("plan-view-example");
 
-export class PlanViewExample {
+export class Grandchild {
 
   static inject = [PlanActionCreators, PlanStore, Dispatcher];
 
@@ -37,6 +37,7 @@ export class PlanViewExample {
 
   @handle(PlanActionConstants.PLAN_SELECTED)
   handlePlanSelected(message, plan) {
+    logger.debug('Received event: ', message);
     logger.debug("This will only get invoked this one time == bug.", plan);
     this.plan = this.planStore.currentPlan;
   }

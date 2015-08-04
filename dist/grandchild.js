@@ -1,7 +1,7 @@
 System.register(['./plan-action-constants', './plan-action-creators', './plan-store', 'aurelia-framework', 'aurelia-flux'], function (_export) {
   'use strict';
 
-  var PlanActionConstants, PlanActionCreators, PlanStore, bindable, handle, waitFor, Dispatcher, App;
+  var PlanActionConstants, PlanActionCreators, PlanStore, bindable, LogManager, handle, waitFor, Dispatcher, logger, Grandchild;
 
   var _createDecoratedClass = (function () { function defineProperties(target, descriptors, initializers) { for (var i = 0; i < descriptors.length; i++) { var descriptor = descriptors[i]; var decorators = descriptor.decorators; var key = descriptor.key; delete descriptor.key; delete descriptor.decorators; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor || descriptor.initializer) descriptor.writable = true; if (decorators) { for (var f = 0; f < decorators.length; f++) { var decorator = decorators[f]; if (typeof decorator === 'function') { descriptor = decorator(target, key, descriptor) || descriptor; } else { throw new TypeError('The decorator for method ' + descriptor.key + ' is of the invalid type ' + typeof decorator); } } if (descriptor.initializer !== undefined) { initializers[key] = descriptor; continue; } } Object.defineProperty(target, key, descriptor); } } return function (Constructor, protoProps, staticProps, protoInitializers, staticInitializers) { if (protoProps) defineProperties(Constructor.prototype, protoProps, protoInitializers); if (staticProps) defineProperties(Constructor, staticProps, staticInitializers); return Constructor; }; })();
 
@@ -18,18 +18,21 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
       PlanStore = _planStore.PlanStore;
     }, function (_aureliaFramework) {
       bindable = _aureliaFramework.bindable;
+      LogManager = _aureliaFramework.LogManager;
     }, function (_aureliaFlux) {
       handle = _aureliaFlux.handle;
       waitFor = _aureliaFlux.waitFor;
       Dispatcher = _aureliaFlux.Dispatcher;
     }],
     execute: function () {
-      App = (function () {
+      logger = LogManager.getLogger("plan-view-example");
+
+      Grandchild = (function () {
         var _instanceInitializers = {};
         var _instanceInitializers = {};
 
-        _createDecoratedClass(App, [{
-          key: 'plans',
+        _createDecoratedClass(Grandchild, [{
+          key: 'plan',
           decorators: [bindable],
           initializer: null,
           enumerable: true
@@ -39,42 +42,42 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
           enumerable: true
         }], _instanceInitializers);
 
-        function App(planActionCreators, planStore, dispatcher) {
-          _classCallCheck(this, App);
+        function Grandchild(planActionCreators, planStore, dispatcher) {
+          _classCallCheck(this, Grandchild);
 
-          _defineDecoratedPropertyDescriptor(this, 'plans', _instanceInitializers);
+          _defineDecoratedPropertyDescriptor(this, 'plan', _instanceInitializers);
 
           this.planActionCreators = planActionCreators;
           this.planStore = planStore;
           this.dispatcher = dispatcher;
         }
 
-        _createDecoratedClass(App, [{
+        _createDecoratedClass(Grandchild, [{
           key: 'activate',
-          value: function activate() {
-            return this.planActionCreators.retrievePlans();
+          value: function activate(params, config, navigation) {
+            logger.debug("activate for visitId", params.visitId);
+            return this.planActionCreators.selectPlan(params.visitId);
           }
         }, {
-          key: 'configureRouter',
-          value: function configureRouter(config, router) {
-
-            config.map([{ route: [''], moduleId: './home', name: 'home', nav: true, title: 'Home' }, { route: ['child'], moduleId: './child', name: 'child', nav: false, title: 'Child View' }]);
-
-            this.router = router;
+          key: 'deactivate',
+          value: function deactivate() {
+            logger.debug("deactivate");
           }
         }, {
-          key: 'handlePlansRetrieved',
-          decorators: [handle(PlanActionConstants.PLANS_RETRIEVED)],
-          value: function handlePlansRetrieved(message, projects) {
-            this.plans = this.planStore.plans;
+          key: 'handlePlanSelected',
+          decorators: [handle(PlanActionConstants.PLAN_SELECTED)],
+          value: function handlePlanSelected(message, plan) {
+            logger.debug('Received event: ', message);
+            logger.debug("This will only get invoked this one time == bug.", plan);
+            this.plan = this.planStore.currentPlan;
           }
         }], null, _instanceInitializers);
 
-        return App;
+        return Grandchild;
       })();
 
-      _export('App', App);
+      _export('Grandchild', Grandchild);
     }
   };
 });
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=grandchild.js.map

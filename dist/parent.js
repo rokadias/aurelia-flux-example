@@ -1,7 +1,7 @@
 System.register(['./plan-action-constants', './plan-action-creators', './plan-store', 'aurelia-framework', 'aurelia-flux'], function (_export) {
   'use strict';
 
-  var PlanActionConstants, PlanActionCreators, PlanStore, bindable, handle, waitFor, Dispatcher, App;
+  var PlanActionConstants, PlanActionCreators, PlanStore, bindable, handle, waitFor, Dispatcher, Parent;
 
   var _createDecoratedClass = (function () { function defineProperties(target, descriptors, initializers) { for (var i = 0; i < descriptors.length; i++) { var descriptor = descriptors[i]; var decorators = descriptor.decorators; var key = descriptor.key; delete descriptor.key; delete descriptor.decorators; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor || descriptor.initializer) descriptor.writable = true; if (decorators) { for (var f = 0; f < decorators.length; f++) { var decorator = decorators[f]; if (typeof decorator === 'function') { descriptor = decorator(target, key, descriptor) || descriptor; } else { throw new TypeError('The decorator for method ' + descriptor.key + ' is of the invalid type ' + typeof decorator); } } if (descriptor.initializer !== undefined) { initializers[key] = descriptor; continue; } } Object.defineProperty(target, key, descriptor); } } return function (Constructor, protoProps, staticProps, protoInitializers, staticInitializers) { if (protoProps) defineProperties(Constructor.prototype, protoProps, protoInitializers); if (staticProps) defineProperties(Constructor, staticProps, staticInitializers); return Constructor; }; })();
 
@@ -24,11 +24,11 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
       Dispatcher = _aureliaFlux.Dispatcher;
     }],
     execute: function () {
-      App = (function () {
+      Parent = (function () {
         var _instanceInitializers = {};
         var _instanceInitializers = {};
 
-        _createDecoratedClass(App, [{
+        _createDecoratedClass(Parent, [{
           key: 'plans',
           decorators: [bindable],
           initializer: null,
@@ -39,8 +39,8 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
           enumerable: true
         }], _instanceInitializers);
 
-        function App(planActionCreators, planStore, dispatcher) {
-          _classCallCheck(this, App);
+        function Parent(planActionCreators, planStore, dispatcher) {
+          _classCallCheck(this, Parent);
 
           _defineDecoratedPropertyDescriptor(this, 'plans', _instanceInitializers);
 
@@ -49,7 +49,7 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
           this.dispatcher = dispatcher;
         }
 
-        _createDecoratedClass(App, [{
+        _createDecoratedClass(Parent, [{
           key: 'activate',
           value: function activate() {
             return this.planActionCreators.retrievePlans();
@@ -58,7 +58,7 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
           key: 'configureRouter',
           value: function configureRouter(config, router) {
 
-            config.map([{ route: [''], moduleId: './home', name: 'home', nav: true, title: 'Home' }, { route: ['child'], moduleId: './child', name: 'child', nav: false, title: 'Child View' }]);
+            config.map([{ route: ['', '/reset'], moduleId: './reset', name: 'reset', nav: false, title: 'Reset' }, { route: ['plan/:visitId'], moduleId: './plan-view-example', name: 'plan-view-example', nav: false, title: 'Plan View' }]);
 
             this.router = router;
           }
@@ -70,11 +70,11 @@ System.register(['./plan-action-constants', './plan-action-creators', './plan-st
           }
         }], null, _instanceInitializers);
 
-        return App;
+        return Parent;
       })();
 
-      _export('App', App);
+      _export('Parent', Parent);
     }
   };
 });
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=parent.js.map

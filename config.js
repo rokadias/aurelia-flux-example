@@ -4,6 +4,13 @@ System.config({
   "babelOptions": {
     "stage": 0
   },
+  //"paths": {
+  //  "*": "dist/*.js",
+  //  "github:*": "jspm_packages/github/*.js",
+  //  "npm:*": "jspm_packages/npm/*.js",
+  //  "carelogistics-arch:*": "jspm_packages/carelogistics-arch/*.js"
+  //},
+  //"buildCSS": false
   "paths": {
     "*": "dist/*.js"
   }

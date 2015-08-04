@@ -22,7 +22,7 @@ System.register(['aurelia-flux', 'aurelia-framework', './plan-action-constants',
       _ = _lodash['default'];
     }],
     execute: function () {
-      logger = LogManager.getLogger("plan-store");
+      logger = LogManager.getLogger('plan-store');
 
       PlanStore = (function () {
         _createClass(PlanStore, null, [{
@@ -47,25 +47,28 @@ System.register(['aurelia-flux', 'aurelia-framework', './plan-action-constants',
             this._currentPlan = _.find(this.plans, function (p) {
               return p.visitId == visitId;
             });
-            logger.debug("Setting current plan to: ", this.currentPlan);
+            logger.debug('Received event: ', message);
             this.dispatcher.dispatch(PlanActionConstants.PLAN_SELECTED, this.currentPlan);
+            logger.debug('Sent event: ', PlanActionConstants.PLAN_SELECTED);
           }
         }, {
           key: 'handleRetrieveProjects',
           decorators: [handle(PlanActionConstants.RETRIEVE_PLANS)],
           value: function handleRetrieveProjects(message, projects) {
+            logger.debug('Received event: ', message);
             this._plans = projects;
             this.dispatcher.dispatch(PlanActionConstants.PLANS_RETRIEVED, this._plans);
+            logger.debug('Sent event: ', PlanActionConstants.PLANS_RETRIEVED);
           }
         }, {
           key: 'plans',
-          decorators: [computedFrom("_projects")],
+          decorators: [computedFrom('_projects')],
           get: function get() {
             return this._plans;
           }
         }, {
           key: 'currentPlan',
-          decorators: [computedFrom("_currentPlan")],
+          decorators: [computedFrom('_currentPlan')],
           get: function get() {
             return this._currentPlan;
           }

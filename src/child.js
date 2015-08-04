@@ -5,9 +5,7 @@ import {PlanStore} from './plan-store';
 import {bindable} from 'aurelia-framework';
 import {handle, waitFor, Dispatcher} from 'aurelia-flux';
 
-
-
-export class App {
+export class Child {
 
   @bindable plans;
 
@@ -26,8 +24,8 @@ export class App {
   configureRouter(config, router) {
 
     config.map([
-      {route: [''], moduleId: './home', name: 'home', nav: true, title: 'Home'},
-      {route: ['child'], moduleId: './child', name: 'child', nav: false, title: 'Child View'}
+      {route: ['', '/reset'], moduleId: './reset', name: 'reset', nav: false, title: 'Reset'},
+      {route: ['plan/:visitId'], moduleId: './grandchild', name: 'grandchild', nav: false, title: 'Grandchild View'}
     ]);
 
     this.router = router;
