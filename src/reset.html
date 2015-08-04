@@ -12,11 +12,12 @@
       Looking at the 'plan-view-example.js' will show the method:
       <code>
         <pre>
-        @handle(PlanActionConstants.PLAN_SELECTED)
+         @handle(PlanActionConstants.PLAN_SELECTED)
           handlePlanSelected(message, plan) {
-          logger.debug("This will only get invoked this one time == bug.", plan);
-          this.plan = this.planStore.currentPlan;
-        }
+            logger.debug('Received event: ', message);
+            logger.debug("This will only get invoked this one time == bug.", plan);
+            this.plan = this.planStore.currentPlan;
+          }
       </pre>
       </code>
       <br />
