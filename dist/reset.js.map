@@ -1,1 +1,0 @@
-{"version":3,"sources":["reset.js"],"names":[],"mappings":";;;MAAa,OAAO;;;;;;;AAAP,aAAO,YAAP,OAAO;8BAAP,OAAO;;aAClB,OAAO,GAAG,QAAQ","file":"reset.js","sourcesContent":["export class Welcome {\n  heading = 'Hello.';\n}\n"],"sourceRoot":"/source/"}
