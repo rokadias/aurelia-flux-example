@@ -39,7 +39,7 @@
     "dependencies": {
       "aurelia-animator-css": "github:aurelia/animator-css@^0.13.0",
       "aurelia-binding": "github:aurelia/binding@^0.8.1",
-      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0",
+      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.15.0",
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.9.0",
       "aurelia-event-aggregator": "github:aurelia/event-aggregator@^0.6.1",
       "aurelia-flux": "github:tfrydrychewicz/aurelia-flux@^0.1.3",
@@ -66,7 +66,7 @@
       "font-awesome": "npm:font-awesome@^4.3.0",
       "lodash": "npm:lodash@^3.9.3",
       "nprogress": "github:rstacruz/nprogress@^0.2.0",
-      "tfrydrychewicz/aurelia-flux": "github:tfrydrychewicz/aurelia-flux@0.1.5"
+      "tfrydrychewicz/aurelia-flux": "github:tfrydrychewicz/aurelia-flux@0.1.6"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",
